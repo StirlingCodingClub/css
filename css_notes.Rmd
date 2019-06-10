@@ -29,10 +29,10 @@ Please think of this document as a living document, which you are free to improv
 
 You can define style rules by adding a **style** element inside the **head** element of a webpage. 
 
-> Open `/html/example.html` and take a look at how a HTML page looks when it has absolutely no styling loaded. Now, have a go at putting this **style** tag in the right place, between the opening `<head>` and closing `</head>` tags.
+> Open `/html/example.html` and take a look at how a HTML page looks when it has absolutely no styling loaded. Now, have a go at putting this `<style>` tag in the right place, between the opening `<head>` and closing `</head>` tags. It contains a CSS declaration block that targets paragraphs.
 
 ```{HTML}
-<style type="text/css" media="all">
+<style type="text/css">
   p {
     font-size: 1.2em;
     line-height: 1.4;
@@ -57,7 +57,7 @@ The **style** attribute can be used to set CSS properties directly on HTML eleme
 
 It's often better to keep your stylesheet in a separate file. External stylesheets can be loaded with a webpage by adding the **link** element inside the **head** element, and setting particular attributes.
 
-> Make a new text file and save it in `/css` with the extension *.css*. Add the style rule below to this file.
+> Make a new text file and save it in `/css` with the extension `.css`. Add the style rule below to this file.
 
 ```{CSS}
 body {
@@ -68,10 +68,14 @@ body {
 > Then load it with the example HTML page by adding the following element, again between the opening `<head>` and closing `</head>` tags. 
 
 ```{HTML}
-<link href="../css/your-styles.css" rel="stylesheet" media="all">
+<link href="../css/your-styles.css" rel="stylesheet" media="all" />
 ```
   
-You can load external styles with Pandoc for you RMarkdown documents too. Just include the **css** option as part of the **html_document** statement in your Pandoc header: 
+The **media** attribute tells the page to use these styles all the time. You can also set this to *screen* or *print*. Having a different stylesheet for printing pages can be really useful to save paper and ink. You can add this attribute to internal `<style>` tags too.
+
+### RMarkdown
+
+You can also load external styles with Pandoc for you RMarkdown documents. Just include the **css** option as part of the **html_document** statement in your Pandoc header, with the path to your file: 
 
 ```{Rmd}
 output:
@@ -79,13 +83,13 @@ output:
     css: your-stylesheet.css
 ```
 
-> Later, take a look at the header of this file and see what custom styles it's using.
+> Take a look at the header of `css_notes.Rmd` to see what custom styles this page uses.
 
 # Properties
 
-Properties are specific names for all the things that you can control. We've already used a few like `font-size`, `font-family` and `text-align`. They're like parameters of functions, in that they have to be spelt correctly and they can only take particular types of information. Property names are always followed by a colon, a space and then a value followed by a semicolon. `property: value;` It's good practice to put every property on it's own line so they are easy to read, and can be easily commented out.
+Properties are specific names for all the styles that you can control. We've already used a few like `font-size`, `font-family` and `text-align`. Properties are like parameters of functions, in that they have to be spelt correctly and they can only take particular types of information. Property names are always followed by a colon, a space, and then a value, followed by a semicolon. `property: value;` It's good practice to put every property indented on it's own line, so they are easy to read and comment out.
 
-There are tons of properties you can set with CSS, **for a full list see [here](https://www.w3schools.com/cssref/default.asp)**.
+**There are tons of properties you can set with CSS, for a full list see [here](https://www.w3schools.com/cssref/default.asp)**.
 
 > Let's try some of the options in your new stylesheet. Look up **background-colour**, **background-image**, **background-repeat**, **background-position**, and **background-size**. Now, try writing a background style for the body element (don't worry about if the text is still readable just now). 
 
@@ -102,7 +106,7 @@ body {
 
 > Try out some different values for these properties to see what they do.
 
-# Selectors {.tabset}
+# Selectors
 
 Selectors are what you use to target HTML elements, they define which parts of the page your properties will be applied to. We've been using them already to target things like paragraphs, headers and body elements. Selectors come *before* the curly braces that contain the declaration block. You need atleast one, but you can also have multiple, comma spearated, selectors:
 
@@ -118,7 +122,7 @@ h2 {
 }
 ```
 
-All the tags that are used to define HTML elements can be used as selectors. Any declaration block using tags as selectors will affect ALL elements of that type on the page. You can also select targets using class or ID names that elements have been given and a variety of other advanced methods.
+All the tags that are used to define HTML elements can be used as selectors. You can also select targets using **class** or **ID** names that elements have been given as well as a variety of other advanced methods. Any declaration block will affect ALL elements of the type defined by it's selector.
 
 > Try adding a new declaration block to your stylesheet. Let's make all the text more readable by targeting the element **main**. Add the style below, then inspect the element and turn the styles on and off to see what they do.
 
@@ -134,7 +138,7 @@ main {
 }
 ```
 
-> Did you wonder why there are two declarations for **background-color**? Not all browsers accept `rgba` values (with opacity) so adding a fallback declaration *before* it makes sure there is still a compatible style.
+> Did you wonder why there are two declarations for **background-color**? Not all browsers accept `rgba` values (with opacity) so adding a fallback declaration *before* it makes sure there is still a compatible style. Any declaration that follows another gets loaded last and takes priority, if it can be used.
 
 ## Classes
 
@@ -144,7 +148,9 @@ A **class** is a type of HTML attribute used to give elements custom names.
 <p class="big"></p>
 ```
 
-Classes are intended to be used many times, perhaps even across different elements. So the properties they contain should make sense to the name and work in a range of situations. They are used as selectors like this:
+Classes are intended to be used many times, perhaps even across different elements. So the properties they contain should make sense relative to the name, and they should work in a range of situations. 
+
+**Classes are used as selectors like this:**
 
 ```{CSS}
 .big {
@@ -152,7 +158,7 @@ Classes are intended to be used many times, perhaps even across different elemen
 }
 ```
 
-**Classes are the prefferred way to target styles** as they allow for changes to the HTML elements. In this example we could change the markup to `<span class="big"></span>` and our style would still be applied. Classes are also easily added and removed via javascript, so pre-set styles like the one above could appear and disapear depending on events that happen on the page.
+**Classes are the prefferred way to target elements** as they allow for changes to the HTML markup, without affecting the rendering of the page. In this example we could change the markup to `<span class="big"></span>` and our style would still be applied, because it targets the class and not the element. 
 
 > There is a **div** element with the class **special** in the the example page already. Try writing a declaration block that will make this section stand out from the rest of the page. It could look something like this:
 
@@ -176,15 +182,25 @@ Classes are intended to be used many times, perhaps even across different elemen
 
 > Do you see how this time the selector for the special heading is more complicated? `.special h2` targets all **h2** elements that are *inside* elements with the class **special**. You can keep going too, with as many spaces as you like for deeply nested elements; but using the shortest selectors possible is recommended.
 
-> Now try changing the **div** element to a **section** element instead (this tag is more suitable). Remember to change both the opening and closing tags. Your `.special` class style declaration will still work because we didn't combine it with a specific element.
+> Now try changing the **div** element to a **section** element instead (this tag is more suitable). Remember to change both the opening and closing tags. Your `.special` class style declaration will still work because we didn't target a specific element.
 
 ### Combining class and element selectors
 
-You can combine class selectors with element selectors like this: `div.special`. The `.` that prefixes the class selector acts to concatenate the two selectors together. This can be useful when you need to overwrite a style that already specifies the element. You can also concatenate as many classes as want, so you can imagine a selector that looks something like this: `div.special.sale` or `div.special.info`. All the special divs will use a set of base declarations but then extra classes can be added to differentiate them. You can give an element multiple classes, just by using spaces as separators in the attribute: `class="special sale"`
+You can combine class selectors with element selectors like this: `div.special`. The `.` that prefixes the class selector acts to concatenate the two selectors together. This can be useful when you need to override a style that already specifies the element. 
+
+You can also concatenate as many classes as you want, so you can imagine a selector that looks something like this: `.special.sale` or `.special.info`. All the elements with `class="special"` will use the same set of declarations but then extra classes (like `sale` or `info` in this example) can be added to differentiate them. Taking this approach helps you to write less repetitive CSS.
+
+You can give an element multiple classes, just by using spaces as separators in the attribute: `class="special sale"`
+
+> Copy the whole chunk of markup between `<section class="special">` and `</section>`. Paste it just above the `<footer>` to create another special section. Give this new section another class; call it whatever you like so your class attribute ends up looking something like: `class="special new-class"`. 
+
+> Now, try adding a new declaration that adds something different to this block, by targeting the new class in your stylesheet.
 
 ## IDs
 
-An **id** is a anothery type of HTML attribute used to give elements custom names. It works in a very similar way to classes. However, IDs are intended to be used only once in a page, so they are usually very specific. They're used as selectors like this:
+An **id** is a another type of HTML attribute used to give elements custom names. It works in a very similar way to classes. However, IDs are intended to be used only once in a page, so they are usually very specific. 
+
+**IDs are used as selectors like this:**
 
 ```{HTML}
 <body id="something-particular"></body>
@@ -196,36 +212,33 @@ An **id** is a anothery type of HTML attribute used to give elements custom name
 }
 ```
 
-IDs are often used on body tags so that you can write styles that are specific to particular pages. You can combine them in all the same ways as classes, so selectors might start to look like: `#about .special h2`, `#newsletter-signup.special` or `.special#newsletter-signup` etc. 
+IDs are often used on body tags so that you can write styles that are specific to particular pages. You can combine ID selectors in all the same ways as classes; the `#` prefix acts as a concatenator too. So, selectors with IDs in might start to look like: `#about .special h2`, or `#signup.special` etc. 
 
 
 # Overriding styles
 
 <div class="alert alert-warning" role="alert">
-**Ordering is really important**
+**Ordering is really important.**
 </div>
 
-We've already seen how ordering property declarations within declaration blocks can be important for setting fallbacks. The ordering of the entire stylesheet/s is important too. Whatever styles are written first, at the top of your stylesheet, will be loaded first. If another declaration block later on targets the same element with a different style, that later style will override the earlier one.
-
-Remember how inline styles loaded last? That's why our paragraph style didn't override it. 
+We've already seen how ordering property declarations within declaration blocks can be important for setting colour fallbacks. The ordering of the entire stylesheet is important too. Whatever styles are written first, at the top of your stylesheet, will be loaded first. If another declaration block later on targets the same element with a different style, that later style will override the earlier one.
 
 ## Loading order
 
-If you load multiple external styles, the last one loaded will override all the others. Internal styles ovveride external stylesheets and inline styles override them all.
+The order of styles loaded in different ways is important too. Remember how we couldn't override the inline paragraph style with our internal style? 
 
-1. External styles
-2. Internal styles
-3. Inline styles
+If you load multiple external styles, the last one loaded will override all the others. Internal styles can be loaded before or after external styles, depending on where the `<link>` and `<style>` tags are placed. Inline styles, however, are ALWAYS loaded last, so override them all.
 
-Always from top to bottom, or left to right.
+1. **External and Internal styles** (from top to bottom).
+2. **Inline styles** (from top to bottom and left to right).
 
-> Try loading the readymade example stylesheet `/css/example.css` in the example webpage. Everything we've done together, plus a few extras is in this sheet. Play with the order, putting it before and after your stylesheet. Inspect elements to see what happens and get a feel for which styles override each other.
+> Try loading the readymade example stylesheet `/css/example.css` in the example webpage. Everything we've done together, plus a few extra styles is in this sheet. Play with the order, putting it before and after your stylesheet. Inspect elements to see what happens and get a feel for which styles override each other.
 
 ```{HTML}
 <link rel="stylesheet" href="../css/example.css" />
 ```
 
-> How has the font-size declaration for the footer in my example stylesheet taken priority over the inline style?
+> How has the font-size declaration for the footer in my example stylesheet taken priority over the inline style we looked at earlier?
 
 # Bootstrap
 
@@ -267,11 +280,16 @@ This is just one small example. Bootstrap has LOADS of components and styles you
   
 - [W3Schools CSS](https://www.w3schools.com/css/): Free interactive online lessons.
 - [W3Schools HTML](https://www.w3schools.com/html/default.asp): Free interactive online lessons.
-- [CSSTricks](): Very cool techniques and demos.
+- [CSS Tricks](https://css-tricks.com/snippets/css/): Very cool snippets, techniques and demos.
+- [Positioning](https://css-tricks.com/almanac/properties/p/position/): How to position elements with CSS like a pro.
+
+
 - [Bootstrap](https://getbootstrap.com/docs/3.3/): Grid framework used by Knitr and Shiny.
 - [RMarkdown HTML Style](https://bookdown.org/yihui/rmarkdown/html-document.html#appearance-and-style): Styling documentation.
 - [HTML5 Boilerplate](https://github.com/h5bp/html5-boilerplate): Best practice bare bones HTML page template.
 - [ColorZilla](https://www.colorzilla.com/): Colour picker browser extension.
+- [Colors](https://coolors.co/3772ff-f038ff-ef709d-e2ef70-70e4ef): Colour palette generator (makes sure your colours always compliment each other).
+- [CSS matic](https://www.cssmatic.com/): CSS generators for fancy background gradients, textures and shadows.
 
 
 # Advanced Topics

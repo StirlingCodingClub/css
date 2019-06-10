@@ -307,9 +307,9 @@ div.tocify {
 <h2><span class="header-section-number">1.1</span> Internal styles</h2>
 <p>You can define style rules by adding a <strong>style</strong> element inside the <strong>head</strong> element of a webpage.</p>
 <blockquote>
-<p>Open <code>/html/example.html</code> and take a look at how a HTML page looks when it has absolutely no styling loaded. Now, have a go at putting this <strong>style</strong> tag in the right place, between the opening <code>&lt;head&gt;</code> and closing <code>&lt;/head&gt;</code> tags.</p>
+<p>Open <code>/html/example.html</code> and take a look at how a HTML page looks when it has absolutely no styling loaded. Now, have a go at putting this <code>&lt;style&gt;</code> tag in the right place, between the opening <code>&lt;head&gt;</code> and closing <code>&lt;/head&gt;</code> tags. It contains a CSS declaration block that targets paragraphs.</p>
 </blockquote>
-<pre class="html"><code>&lt;style type=&quot;text/css&quot; media=&quot;all&quot;&gt;
+<pre class="html"><code>&lt;style type=&quot;text/css&quot;&gt;
   p {
     font-size: 1.2em;
     line-height: 1.4;
@@ -331,7 +331,7 @@ div.tocify {
 <h2><span class="header-section-number">1.3</span> External styles</h2>
 <p>It’s often better to keep your stylesheet in a separate file. External stylesheets can be loaded with a webpage by adding the <strong>link</strong> element inside the <strong>head</strong> element, and setting particular attributes.</p>
 <blockquote>
-<p>Make a new text file and save it in <code>/css</code> with the extension <em>.css</em>. Add the style rule below to this file.</p>
+<p>Make a new text file and save it in <code>/css</code> with the extension <code>.css</code>. Add the style rule below to this file.</p>
 </blockquote>
 <pre class="css"><code>body {
   font-family: sans-serif;
@@ -339,20 +339,24 @@ div.tocify {
 <blockquote>
 <p>Then load it with the example HTML page by adding the following element, again between the opening <code>&lt;head&gt;</code> and closing <code>&lt;/head&gt;</code> tags.</p>
 </blockquote>
-<pre class="html"><code>&lt;link href=&quot;../css/your-styles.css&quot; rel=&quot;stylesheet&quot; media=&quot;all&quot;&gt;</code></pre>
-<p>You can load external styles with Pandoc for you RMarkdown documents too. Just include the <strong>css</strong> option as part of the <strong>html_document</strong> statement in your Pandoc header:</p>
+<pre class="html"><code>&lt;link href=&quot;../css/your-styles.css&quot; rel=&quot;stylesheet&quot; media=&quot;all&quot; /&gt;</code></pre>
+<p>The <strong>media</strong> attribute tells the page to use these styles all the time. You can also set this to <em>screen</em> or <em>print</em>. Having a different stylesheet for printing pages can be really useful to save paper and ink. You can add this attribute to internal <code>&lt;style&gt;</code> tags too.</p>
+<div id="rmarkdown" class="section level3">
+<h3><span class="header-section-number">1.3.1</span> RMarkdown</h3>
+<p>You can also load external styles with Pandoc for you RMarkdown documents. Just include the <strong>css</strong> option as part of the <strong>html_document</strong> statement in your Pandoc header, with the path to your file:</p>
 <pre class="rmd"><code>output:
   html_document:
     css: your-stylesheet.css</code></pre>
 <blockquote>
-<p>Later, take a look at the header of this file and see what custom styles it’s using.</p>
+<p>Take a look at the header of <code>css_notes.Rmd</code> to see what custom styles this page uses.</p>
 </blockquote>
+</div>
 </div>
 </div>
 <div id="properties" class="section level1">
 <h1><span class="header-section-number">2</span> Properties</h1>
-<p>Properties are specific names for all the things that you can control. We’ve already used a few like <code>font-size</code>, <code>font-family</code> and <code>text-align</code>. They’re like parameters of functions, in that they have to be spelt correctly and they can only take particular types of information. Property names are always followed by a colon, a space and then a value followed by a semicolon. <code>property: value;</code> It’s good practice to put every property on it’s own line so they are easy to read, and can be easily commented out.</p>
-<p>There are tons of properties you can set with CSS, <strong>for a full list see <a href="https://www.w3schools.com/cssref/default.asp">here</a></strong>.</p>
+<p>Properties are specific names for all the styles that you can control. We’ve already used a few like <code>font-size</code>, <code>font-family</code> and <code>text-align</code>. Properties are like parameters of functions, in that they have to be spelt correctly and they can only take particular types of information. Property names are always followed by a colon, a space, and then a value, followed by a semicolon. <code>property: value;</code> It’s good practice to put every property indented on it’s own line, so they are easy to read and comment out.</p>
+<p><strong>There are tons of properties you can set with CSS, for a full list see <a href="https://www.w3schools.com/cssref/default.asp">here</a></strong>.</p>
 <blockquote>
 <p>Let’s try some of the options in your new stylesheet. Look up <strong>background-colour</strong>, <strong>background-image</strong>, <strong>background-repeat</strong>, <strong>background-position</strong>, and <strong>background-size</strong>. Now, try writing a background style for the body element (don’t worry about if the text is still readable just now).</p>
 </blockquote>
@@ -367,7 +371,7 @@ div.tocify {
 <p>Try out some different values for these properties to see what they do.</p>
 </blockquote>
 </div>
-<div id="selectors" class="section level1 tabset">
+<div id="selectors" class="section level1">
 <h1><span class="header-section-number">3</span> Selectors</h1>
 <p>Selectors are what you use to target HTML elements, they define which parts of the page your properties will be applied to. We’ve been using them already to target things like paragraphs, headers and body elements. Selectors come <em>before</em> the curly braces that contain the declaration block. You need atleast one, but you can also have multiple, comma spearated, selectors:</p>
 <pre class="css"><code>/* will make both h1 and h2 headings bold */
@@ -379,7 +383,7 @@ h1,
 h2 {
   font-weight: bold;
 }</code></pre>
-<p>All the tags that are used to define HTML elements can be used as selectors. Any declaration block using tags as selectors will affect ALL elements of that type on the page. You can also select targets using class or ID names that elements have been given and a variety of other advanced methods.</p>
+<p>All the tags that are used to define HTML elements can be used as selectors. You can also select targets using <strong>class</strong> or <strong>ID</strong> names that elements have been given as well as a variety of other advanced methods. Any declaration block will affect ALL elements of the type defined by it’s selector.</p>
 <blockquote>
 <p>Try adding a new declaration block to your stylesheet. Let’s make all the text more readable by targeting the element <strong>main</strong>. Add the style below, then inspect the element and turn the styles on and off to see what they do.</p>
 </blockquote>
@@ -393,17 +397,18 @@ h2 {
   border-radius: 2em;
 }</code></pre>
 <blockquote>
-<p>Did you wonder why there are two declarations for <strong>background-color</strong>? Not all browsers accept <code>rgba</code> values (with opacity) so adding a fallback declaration <em>before</em> it makes sure there is still a compatible style.</p>
+<p>Did you wonder why there are two declarations for <strong>background-color</strong>? Not all browsers accept <code>rgba</code> values (with opacity) so adding a fallback declaration <em>before</em> it makes sure there is still a compatible style. Any declaration that follows another gets loaded last and takes priority, if it can be used.</p>
 </blockquote>
 <div id="classes" class="section level2">
 <h2><span class="header-section-number">3.1</span> Classes</h2>
 <p>A <strong>class</strong> is a type of HTML attribute used to give elements custom names.</p>
 <pre class="html"><code>&lt;p class=&quot;big&quot;&gt;&lt;/p&gt;</code></pre>
-<p>Classes are intended to be used many times, perhaps even across different elements. So the properties they contain should make sense to the name and work in a range of situations. They are used as selectors like this:</p>
+<p>Classes are intended to be used many times, perhaps even across different elements. So the properties they contain should make sense relative to the name, and they should work in a range of situations.</p>
+<p><strong>Classes are used as selectors like this:</strong></p>
 <pre class="css"><code>.big {
   font-size: 2em;
 }</code></pre>
-<p><strong>Classes are the prefferred way to target styles</strong> as they allow for changes to the HTML elements. In this example we could change the markup to <code>&lt;span class=&quot;big&quot;&gt;&lt;/span&gt;</code> and our style would still be applied. Classes are also easily added and removed via javascript, so pre-set styles like the one above could appear and disapear depending on events that happen on the page.</p>
+<p><strong>Classes are the prefferred way to target elements</strong> as they allow for changes to the HTML markup, without affecting the rendering of the page. In this example we could change the markup to <code>&lt;span class=&quot;big&quot;&gt;&lt;/span&gt;</code> and our style would still be applied, because it targets the class and not the element.</p>
 <blockquote>
 <p>There is a <strong>div</strong> element with the class <strong>special</strong> in the the example page already. Try writing a declaration block that will make this section stand out from the rest of the page. It could look something like this:</p>
 </blockquote>
@@ -426,45 +431,52 @@ h2 {
 <p>Do you see how this time the selector for the special heading is more complicated? <code>.special h2</code> targets all <strong>h2</strong> elements that are <em>inside</em> elements with the class <strong>special</strong>. You can keep going too, with as many spaces as you like for deeply nested elements; but using the shortest selectors possible is recommended.</p>
 </blockquote>
 <blockquote>
-<p>Now try changing the <strong>div</strong> element to a <strong>section</strong> element instead (this tag is more suitable). Remember to change both the opening and closing tags. Your <code>.special</code> class style declaration will still work because we didn’t combine it with a specific element.</p>
+<p>Now try changing the <strong>div</strong> element to a <strong>section</strong> element instead (this tag is more suitable). Remember to change both the opening and closing tags. Your <code>.special</code> class style declaration will still work because we didn’t target a specific element.</p>
 </blockquote>
 <div id="combining-class-and-element-selectors" class="section level3">
 <h3><span class="header-section-number">3.1.1</span> Combining class and element selectors</h3>
-<p>You can combine class selectors with element selectors like this: <code>div.special</code>. The <code>.</code> that prefixes the class selector acts to concatenate the two selectors together. This can be useful when you need to overwrite a style that already specifies the element. You can also concatenate as many classes as want, so you can imagine a selector that looks something like this: <code>div.special.sale</code> or <code>div.special.info</code>. All the special divs will use a set of base declarations but then extra classes can be added to differentiate them. You can give an element multiple classes, just by using spaces as separators in the attribute: <code>class=&quot;special sale&quot;</code></p>
+<p>You can combine class selectors with element selectors like this: <code>div.special</code>. The <code>.</code> that prefixes the class selector acts to concatenate the two selectors together. This can be useful when you need to override a style that already specifies the element.</p>
+<p>You can also concatenate as many classes as you want, so you can imagine a selector that looks something like this: <code>.special.sale</code> or <code>.special.info</code>. All the elements with <code>class=&quot;special&quot;</code> will use the same set of declarations but then extra classes (like <code>sale</code> or <code>info</code> in this example) can be added to differentiate them. Taking this approach helps you to write less repetitive CSS.</p>
+<p>You can give an element multiple classes, just by using spaces as separators in the attribute: <code>class=&quot;special sale&quot;</code></p>
+<blockquote>
+<p>Copy the whole chunk of markup between <code>&lt;section class=&quot;special&quot;&gt;</code> and <code>&lt;/section&gt;</code>. Paste it just above the <code>&lt;footer&gt;</code> to create another special section. Give this new section another class; call it whatever you like so your class attribute ends up looking something like: <code>class=&quot;special new-class&quot;</code>.</p>
+</blockquote>
+<blockquote>
+<p>Now, try adding a new declaration that adds something different to this block, by targeting the new class in your stylesheet.</p>
+</blockquote>
 </div>
 </div>
 <div id="ids" class="section level2">
 <h2><span class="header-section-number">3.2</span> IDs</h2>
-<p>An <strong>id</strong> is a anothery type of HTML attribute used to give elements custom names. It works in a very similar way to classes. However, IDs are intended to be used only once in a page, so they are usually very specific. They’re used as selectors like this:</p>
+<p>An <strong>id</strong> is a another type of HTML attribute used to give elements custom names. It works in a very similar way to classes. However, IDs are intended to be used only once in a page, so they are usually very specific.</p>
+<p><strong>IDs are used as selectors like this:</strong></p>
 <pre class="html"><code>&lt;body id=&quot;something-particular&quot;&gt;&lt;/body&gt;</code></pre>
 <pre class="css"><code>#something-particular {
   /* some very particular properties */
 }</code></pre>
-<p>IDs are often used on body tags so that you can write styles that are specific to particular pages. You can combine them in all the same ways as classes, so selectors might start to look like: <code>#about .special h2</code>, <code>#newsletter-signup.special</code> or <code>.special#newsletter-signup</code> etc.</p>
+<p>IDs are often used on body tags so that you can write styles that are specific to particular pages. You can combine ID selectors in all the same ways as classes; the <code>#</code> prefix acts as a concatenator too. So, selectors with IDs in might start to look like: <code>#about .special h2</code>, or <code>#signup.special</code> etc.</p>
 </div>
 </div>
 <div id="overriding-styles" class="section level1">
 <h1><span class="header-section-number">4</span> Overriding styles</h1>
 <div class="alert alert-warning" role="alert">
-<p><strong>Ordering is really important</strong></p>
+<p><strong>Ordering is really important.</strong></p>
 </div>
-<p>We’ve already seen how ordering property declarations within declaration blocks can be important for setting fallbacks. The ordering of the entire stylesheet/s is important too. Whatever styles are written first, at the top of your stylesheet, will be loaded first. If another declaration block later on targets the same element with a different style, that later style will override the earlier one.</p>
-<p>Remember how inline styles loaded last? That’s why our paragraph style didn’t override it.</p>
+<p>We’ve already seen how ordering property declarations within declaration blocks can be important for setting colour fallbacks. The ordering of the entire stylesheet is important too. Whatever styles are written first, at the top of your stylesheet, will be loaded first. If another declaration block later on targets the same element with a different style, that later style will override the earlier one.</p>
 <div id="loading-order" class="section level2">
 <h2><span class="header-section-number">4.1</span> Loading order</h2>
-<p>If you load multiple external styles, the last one loaded will override all the others. Internal styles ovveride external stylesheets and inline styles override them all.</p>
+<p>The order of styles loaded in different ways is important too. Remember how we couldn’t override the inline paragraph style with our internal style?</p>
+<p>If you load multiple external styles, the last one loaded will override all the others. Internal styles can be loaded before or after external styles, depending on where the <code>&lt;link&gt;</code> and <code>&lt;style&gt;</code> tags are placed. Inline styles, however, are ALWAYS loaded last, so override them all.</p>
 <ol style="list-style-type: decimal">
-<li>External styles</li>
-<li>Internal styles</li>
-<li>Inline styles</li>
+<li><strong>External and Internal styles</strong> (from top to bottom).</li>
+<li><strong>Inline styles</strong> (from top to bottom and left to right).</li>
 </ol>
-<p>Always from top to bottom, or left to right.</p>
 <blockquote>
-<p>Try loading the readymade example stylesheet <code>/css/example.css</code> in the example webpage. Everything we’ve done together, plus a few extras is in this sheet. Play with the order, putting it before and after your stylesheet. Inspect elements to see what happens and get a feel for which styles override each other.</p>
+<p>Try loading the readymade example stylesheet <code>/css/example.css</code> in the example webpage. Everything we’ve done together, plus a few extra styles is in this sheet. Play with the order, putting it before and after your stylesheet. Inspect elements to see what happens and get a feel for which styles override each other.</p>
 </blockquote>
 <pre class="html"><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;../css/example.css&quot; /&gt;</code></pre>
 <blockquote>
-<p>How has the font-size declaration for the footer in my example stylesheet taken priority over the inline style?</p>
+<p>How has the font-size declaration for the footer in my example stylesheet taken priority over the inline style we looked at earlier?</p>
 </blockquote>
 </div>
 </div>
@@ -503,11 +515,14 @@ h2 {
 <ul>
 <li><a href="https://www.w3schools.com/css/">W3Schools CSS</a>: Free interactive online lessons.</li>
 <li><a href="https://www.w3schools.com/html/default.asp">W3Schools HTML</a>: Free interactive online lessons.</li>
-<li><a href>CSSTricks</a>: Very cool techniques and demos.</li>
+<li><a href="https://css-tricks.com/snippets/css/">CSS Tricks</a>: Very cool snippets, techniques and demos.</li>
+<li><p><a href="https://css-tricks.com/almanac/properties/p/position/">Positioning</a>: How to position elements with CSS like a pro.</p></li>
 <li><a href="https://getbootstrap.com/docs/3.3/">Bootstrap</a>: Grid framework used by Knitr and Shiny.</li>
 <li><a href="https://bookdown.org/yihui/rmarkdown/html-document.html#appearance-and-style">RMarkdown HTML Style</a>: Styling documentation.</li>
 <li><a href="https://github.com/h5bp/html5-boilerplate">HTML5 Boilerplate</a>: Best practice bare bones HTML page template.</li>
 <li><a href="https://www.colorzilla.com/">ColorZilla</a>: Colour picker browser extension.</li>
+<li><a href="https://coolors.co/3772ff-f038ff-ef709d-e2ef70-70e4ef">Colors</a>: Colour palette generator (makes sure your colours always compliment each other).</li>
+<li><p><a href="https://www.cssmatic.com/">CSS matic</a>: CSS generators for fancy background gradients, textures and shadows.</p></li>
 </ul>
 </div>
 <div id="advanced-topics" class="section level1">
