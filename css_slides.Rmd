@@ -1,0 +1,123 @@
+---
+title: "Introduction to Cascading Style Sheets"
+author: "Rose McKeon"
+date: "(June 12th 2019)"
+subtitle: https://github.com/StirlingCodingClub/css
+output:
+  beamer_presentation:
+    theme: "default"
+    colortheme: "default"
+    fonttheme: "default"
+  ioslides_presentation: default
+  slidy_presentation: default
+header-includes:
+- \usepackage{hyperref}
+- \usepackage{tikz}
+- \usepackage{caption}
+colorlinks: true
+linkcolor: blue
+urlcolor: blue
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# What is CSS?
+
+CSS stands for Cascading Style Sheets.
+
+- CSS is a language that describes the *style* of a HTML document. 
+- It describes how particular HTML **elements** should be displayed. 
+
+You'll need to know some basic HTML in order to understand how to use CSS.
+
+# What is HTML?
+
+HTML is the standard markup language for creating Web pages. It describes their *structure*. 
+
+- A web page is made up of HTML **elements** which are represented by **tags**. 
+- These tags define the type of content held within them and give HTML pages a structured hierarchy. 
+- Tags  can be nested within each other, and often have **attributes** which provide additional information about the element.
+
+# Basic HTML
+
+All HTML pages **must have** these elements:
+
+```html
+<html>
+  <head>
+    <title>A title</title>
+    <!-- settings and meta tags go here -->
+  </head>
+  <body>
+    <!-- content goes here -->
+  </body>
+</html>
+```
+
+# HTML Tags
+
+Most element tags wrap content to define where it starts and ends, so they have an opening tag like `<p>` and a closing tag like `</p>`. 
+
+These tags all wrap:
+
+```html
+<h1>A heading</h1>
+<p>A paragraph</p>
+<a href="https://google.com">A link</a>
+```
+The link tag `<a>` needs the **href** attribute to work.
+
+# HTML Tags
+
+Some tags don't wrap, these have closing slashes instead:
+
+```html
+<br /> <!-- a line break -->
+<hr /> <!-- a horizontal rule -->
+<img src="https://tinyurl.com/y63hts5h" />
+```
+The image tag `<img>` needs the **src** attribute to work.
+
+You can put tags directly in RMarkdown documents, so they can be handy to know.
+
+# How CSS and HTML work together
+
+Structure and style are kept separate by using CSS to declare the visual properties which are applied to HTML elements.
+
+- CSS **selectors** target HTML **elements** and apply styles to them. 
+- The styles which are applied are defined by CSS **properties**.
+- A set of properties attached to a selector is a **declaration block**. 
+
+# An example CSS declaration block
+
+A declaration block that targets paragraphs might look something like this:
+
+```css
+p {
+  font-size: 1em;
+  line-height: 1;
+}
+```
+
+The selector `p` is followed by curly braces that contain the declarations. Each declaration states a property to change and a value to change to: `property: value;`
+
+In this case *all paragraphs* will have a font size of 1em and line-height (this is line spacing) of 1.
+
+# HTML without CSS
+
+Without CSS every webpage looks like a very boring plain text document.
+
+
+# Let's make it pretty
+
+- If you haven't already, clone this Git repository to get the example files to work with.
+
+```
+$ git clone git@github.com:StirlingCodingClub/css.git
+```
+
+- Open `html/example.html` in your web browser to see the plain example page for yourself.
+- Follow the instructions in `css_notes.html` to find out how basic CSS can make this example page much more interesting.

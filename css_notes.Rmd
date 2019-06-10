@@ -16,83 +16,28 @@ output:
 ---
 
 <div class="alert alert-info" role="alert">
-**After reading through this, you will have been introduced to the basics of cascading style sheets (CSS) and you should be able to start styling Hyper Text Markup Language (HTML) pages with CSS.**
+**After reading through `css_slides.pdf` and working through these notes, you will have been introduced to the basics of cascading style sheets (CSS) and you should be able to start styling Hyper Text Markup Language (HTML) pages with CSS.**
 
 Please think of this document as a living document, which you are free to improve (like a [wiki](https://en.wikipedia.org/wiki/Wiki)) with minor edits, new sections that others might find useful, or additional resources that you find that you think others might also find useful.
 </div>
 
 ***
 
-# What is CSS?
-
-CSS is a language that describes the style of a HTML document. Specifically, it describes how particular HTML elements should be displayed. So, before I can say much else, let's have some background on HTML.
-
-# What is HTML?
-
-HTML is the standard markup language for creating Web pages. It describes their structure. A web page is made up of HTML **elements** which are represented by **tags**. These tags define the type of content held within them and give HTML pages a structured hierarchy. Tags  can be nested within each other, and often have **attributes** which provide additional information about the element.
-
-All HTML pages **must have** these atleast these elements:
-
-```{HTML}
-<html>
-  <head>
-    <title></title>
-  </head>
-  <body>
-    <!-- content goes here -->
-  </body>
-</html>
-```
-
-
-Most element tags wrap content to define where it starts and ends, so they have an opening tag like `<p>` and a closing tag like `</p>`. These tags all wrap:
-
-```{HTML}
-<h1>A heading</h1>
-<p>A paragraph</p>
-<p>A paragraph with <a href="https://www.w3schools.com/html/html_elements.asp">a link</a> that uses the "href" attribute</p>
-```
-
-Some tags don't wrap, these have closing slashes instead:
-
-```{HTML}
-<br /> <!-- a line break -->
-<hr /> <!-- a horizontal rule -->
-<img src="https://tinyurl.com/y63hts5h" alt="This goat has skills" />
-<!-- images need attributes to work -->
-```
-
-You can put tags directly in RMarkdown documents, so they can be handy to know.
-
-<img src="https://tinyurl.com/y63hts5h" alt="This goat has skills" class="goat" />
-
-# How they work together
-
-In the beginning HTML used a lot of visual properties defined in attributes. So, it frequently described the visual properties of a page as well as it's structure. Nowadays, this is more often handled by CSS instead. That way structure and style are kept separate, giving pages the best flexibility and making them easier to maintain.
-
-CSS **selectors** target HTML **elements** and apply styles to them. The styles which are applied are defined by CSS **properties**. A set of properties attached to a selector is a **declaration block**. It will look something like this:
-
-```{CSS}
-p {
-  font-size: 1em;
-  line-height: 1;
-}
-```
-
-The selector "p" is followed by curly braces that contain the properties which define the style rule. In this case *all paragraphs* will have a font size of 1em and line-height (this is line spacing) of 1.
+# Loading CSS in a HTML page
 
 ## Internal styles
 
 You can define style rules by adding a **style** element inside the **head** element of a webpage. 
 
-> Open `/html/example.html` and take a look at how a HTML page looks when it has absolutely no styling loaded. Every webpage would look like this without CSS. Now, have a go at putting this **style** tag in the right place. Then, try adding a declaration which will make all the paragraphs have a font-size of 1.2em and a line height of 1.4.
+> Open `/html/example.html` and take a look at how a HTML page looks when it has absolutely no styling loaded. Now, have a go at putting this **style** tag in the right place, between the opening `<head>` and closing `</head>` tags.
 
 ```{HTML}
-<head>
-  <style type="text/css" media="all">
-    <!-- CSS goes here -->
-  </style>
-</head>
+<style type="text/css" media="all">
+  p {
+    font-size: 1.2em;
+    line-height: 1.4;
+  }
+</style>
 ```
 
 > Did you notice that the final paragraph didn't change? That's because it has an inline style added as a *style* attribute to that paragraph. While you're viewing the rendered page, try right clicking on it and choosing 'Inspect' from the menu. Can you see the inline style? You should be able to see a panel that shows you the markup, with the CSS styles that apply to it on the right. Try unticking the element.style `font-size: 0.7em` to see what the page would look like without the inline style.
@@ -154,6 +99,8 @@ body {
   background-size: cover;
 }
 ```
+
+> Try out some different values for these properties to see what they do.
 
 # Selectors {.tabset}
 
@@ -260,7 +207,7 @@ IDs are often used on body tags so that you can write styles that are specific t
 
 We've already seen how ordering property declarations within declaration blocks can be important for setting fallbacks. The ordering of the entire stylesheet/s is important too. Whatever styles are written first, at the top of your stylesheet, will be loaded first. If another declaration block later on targets the same element with a different style, that later style will override the earlier one.
 
-Remeber how inline styles loaded last? The order all the different types of styles are added is important too.
+Remember how inline styles loaded last? The order all the different types of styles are added is important too.
 
 ## Loading order of different types of style declarations
 
@@ -278,7 +225,7 @@ Always from top to bottom, or left to right.
 <link rel="stylesheet" href="../css/example.css" />
 ```
 
-> How has the font-size declaration for the footer in my example stlesheet taken priority over the inline style?
+> How has the font-size declaration for the footer in my example stylesheet taken priority over the inline style?
 
 # Bootstrap
 
