@@ -1,0 +1,23 @@
+#header h4 {
+  display: inline-block;
+  font-size: .9em;
+}
+
+.title {
+  font-weight: bold;
+}
+
+.header-section-number {
+  font-size: 0.75em;
+  font-weight: bold;
+  margin-right: .25em;
+}
+
+.nav-tabs .header-section-number {
+  display: none;
+}
+
+.section.level1 {
+  margin-bottom: 5em;
+  padding-top: .1em;
+}

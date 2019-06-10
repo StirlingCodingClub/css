@@ -1,0 +1,357 @@
+---
+title: "Introduction to Cascading Style Sheets"
+author: "Rose McKeon"
+date: "(June 12th 2019)"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+    collapsed: true
+    smooth_scroll: true
+    number_sections: true
+    #code_folding: show
+    css: css/css_notes.css
+#bibliography: css_refs.bib
+---
+
+<div class="alert alert-info" role="alert">
+**After reading through this, you will have been introduced to the basics of cascading style sheets (CSS) and you should be able to start styling Hyper Text Markup Language (HTML) pages with CSS.**
+
+Please think of this document as a living document, which you are free to improve (like a [wiki](https://en.wikipedia.org/wiki/Wiki)) with minor edits, new sections that others might find useful, or additional resources that you find that you think others might also find useful.
+</div>
+
+***
+
+# What is CSS?
+
+CSS is a language that describes the style of a HTML document. Specifically, it describes how particular HTML elements should be displayed. So, before I can say much else, let's have some background on HTML.
+
+# What is HTML?
+
+HTML is the standard markup language for creating Web pages. It describes their structure. A web page is made up of HTML **elements** which are represented by **tags**. These tags define the type of content held within them and give HTML pages a structured hierarchy. Tags  can be nested within each other, and often have **attributes** which provide additional information about the element.
+
+All HTML pages **must have** these atleast these elements:
+
+```{HTML}
+<html>
+  <head>
+    <title></title>
+  </head>
+  <body>
+    <!-- content goes here -->
+  </body>
+</html>
+```
+
+
+Most element tags wrap content to define where it starts and ends, so they have an opening tag like `<p>` and a closing tag like `</p>`. These tags all wrap:
+
+```{HTML}
+<h1>A heading</h1>
+<p>A paragraph</p>
+<p>A paragraph with <a href="https://www.w3schools.com/html/html_elements.asp">a link</a> that uses the "href" attribute</p>
+```
+
+Some tags don't wrap, these have closing slashes instead:
+
+```{HTML}
+<br /> <!-- a line break -->
+<hr /> <!-- a horizontal rule -->
+<img src="https://tinyurl.com/y63hts5h" alt="This goat has skills" />
+<!-- images need attributes to work -->
+```
+
+You can put tags directly in RMarkdown documents, so they can be handy to know.
+
+<img src="https://tinyurl.com/y63hts5h" alt="This goat has skills" class="goat" />
+
+# How they work together
+
+In the beginning HTML used a lot of visual properties defined in attributes. So, it frequently described the visual properties of a page as well as it's structure. Nowadays, this is more often handled by CSS instead. That way structure and style are kept separate, giving pages the best flexibility and making them easier to maintain.
+
+CSS **selectors** target HTML **elements** and apply styles to them. The styles which are applied are defined by CSS **properties**. A set of properties attached to a selector is a **declaration block**. It will look something like this:
+
+```{CSS}
+p {
+  font-size: 1em;
+  line-height: 1;
+}
+```
+
+The selector "p" is followed by curly braces that contain the properties which define the style rule. In this case *all paragraphs* will have a font size of 1em and line-height (this is line spacing) of 1.
+
+## Internal styles
+
+You can define style rules by adding a **style** element inside the **head** element of a webpage. 
+
+> Open `/html/example.html` and take a look at how a HTML page looks when it has absolutely no styling loaded. Every webpage would look like this without CSS. Now, have a go at putting this **style** tag in the right place. Then, try adding a declaration which will make all the paragraphs have a font-size of 1.2em and a line height of 1.4.
+
+```{HTML}
+<head>
+  <style type="text/css" media="all">
+    <!-- CSS goes here -->
+  </style>
+</head>
+```
+
+> Did you notice that the final paragraph didn't change? That's because it has an inline style added as a *style* attribute to that paragraph. While you're viewing the rendered page, try right clicking on it and choosing 'Inspect' from the menu. Can you see the inline style? You should be able to see a panel that shows you the markup, with the CSS styles that apply to it on the right. Try unticking the element.style `font-size: 0.7em` to see what the page would look like without the inline style.
+
+## Inline styles
+
+The **style** attribute can be used to set CSS properties directly on HTML elements. Inline styles are loaded after all other CSS, so they take priority over all other styles. They're generally best avoided but do have their uses. To add one, just add properties to the attribute in the HTML markup, separated by semi-colons like this: `style="property: value; property: value"`.
+
+> Try adding this inline style to the **header** element in our example page.
+
+```{HTML}
+<header style="text-align: center">
+```
+
+
+## External styles
+
+It's often better to keep your stylesheet in a separate file. External stylesheets can be loaded with a webpage by adding the **link** element inside the **head** element, and setting particular attributes.
+
+> Make a new text file and save it in `/css` with the extension *.css*. Add the style rule below to this file.
+
+```{CSS}
+body {
+  font-family: sans-serif;
+}
+```
+
+> Then load it with the example HTML page by adding the following element, again between the opening `<head>` and closing `</head>` tags. 
+
+```{HTML}
+<link href="../css/your-styles.css" rel="stylesheet" media="all">
+```
+  
+You can load external styles with Pandoc for you RMarkdown documents too. Just include the **css** option as part of the **html_document** statement in your Pandoc header: 
+
+```{Rmd}
+output:
+  html_document:
+    css: your-stylesheet.css
+```
+
+> Later, take a look at the header of this file and see what custom styles it's using.
+
+# Properties
+
+Properties are specific names for all the things that you can control. We've already used a few like `font-size`, `font-family` and `text-align`. They're like parameters of functions, in that they have to be spelt correctly and they can only take particular types of information. Property names are always followed by a colon, a space and then a value followed by a semicolon. `property: value;` It's good practice to put every property on it's own line so they are easy to read, and can be easily commented out.
+
+There are tons of properties you can set with CSS, **for a full list see [here](https://www.w3schools.com/cssref/default.asp)**.
+
+> Let's try some of the options in your new stylesheet. Look up **background-colour**, **background-image**, **background-repeat**, **background-position**, and **background-size**. Now, try writing a background style for the body element (don't worry about if the text is still readable just now). 
+
+It could look something like this:
+
+```{CSS}
+body {
+  background-image: url("https://jooinn.com/images/abstract-background-1.jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+```
+
+# Selectors {.tabset}
+
+Selectors are what you use to target HTML elements, they define which parts of the page your properties will be applied to. We've been using them already to target things like paragraphs, headers and body elements. Selectors come *before* the curly braces that contain the declaration block. You need atleast one, but you can also have multiple, comma spearated, selectors:
+
+```{CSS}
+/* will make both h1 and h2 headings bold */
+h1, h2 {
+  font-weight: bold;
+}
+/* you can use line breaks here too */
+h1,
+h2 {
+  font-weight: bold;
+}
+```
+
+All the tags that are used to define HTML elements can be used as selectors. Any declaration block using tags as selectors will affect ALL elements of that type on the page. You can also select targets using class or ID names that elements have been given and a variety of other advanced methods.
+
+> Try adding a new declaration block to your stylesheet. Let's make all the text more readable by targeting the element **main**. Add the style below, then inspect the element and turn the styles on and off to see what they do.
+
+```{CSS}
+main {
+  background-color: black; /* fallback */
+  background-color: rgba(0, 0, 0, .7);
+  color: white;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 1em 2em;
+  border-radius: 2em;
+}
+```
+
+> Did you wonder why there are two declarations for **background-color**? Not all browsers accept `rgba` values (with opacity) so adding a fallback declaration *before* it makes sure there is still a compatible style.
+
+## Classes
+
+A **class** is a type of HTML attribute used to give elements custom names. 
+
+```{HTML}
+<p class="big"></p>
+```
+
+Classes are intended to be used many times, perhaps even across different elements. So the properties they contain should make sense to the name and work in a range of situations. They are used as selectors like this:
+
+```{CSS}
+.big {
+  font-size: 2em;
+}
+```
+
+**Classes are the prefferred way to target styles** as they allow for changes to the HTML elements. In this example we could change the markup to `<span class="big"></span>` and our style would still be applied. Classes are also easily added and removed via javascript, so pre-set styles like the one above could appear and disapear depending on events that happen on the page.
+
+> There is a **div** element with the class **special** in the the example page already. Try writing a declaration block that will make this section stand out from the rest of the page. It could look something like this:
+
+```{CSS}
+.special {
+  background-color: white;
+  color: #4f4f4f;
+  padding: 0 2em 2em;
+}
+.special h2 {
+  background-color: #815AA6;
+  color: white;
+  padding: .5em 1em;
+  border-top-right-radius: 1em;
+  border-bottom-right-radius: 1em;
+  display: inline-block;
+  position: relative;
+  left: -2em;
+}
+```
+
+> Do you see how this time the selector for the special heading is more complicated? `.special h2` targets all **h2** elements that are *inside* elements with the class **special**. You can keep going too, with as many spaces as you like for deeply nested elements; but using the shortest selectors possible is recommended.
+
+> Now try changing the **div** element to a **section** element instead (this tag is more suitable). Remember to change both the opening and closing tags. Your `.special` class style declaration will still work because we didn't combine it with a specific element.
+
+### Combining class and element selectors
+
+You can combine class selectors with element selectors like this: `div.special`. The `.` that prefixes the class selector acts to concatenate the two selectors together. This can be useful when you need to overwrite a style that already specifies the element. You can also concatenate as many classes as want, so you can imagine a selector that looks something like this: `div.special.sale` or `div.special.info`. All the special divs will use a set of base declarations but then extra classes can be added to differentiate them. You can give an element multiple classes, just by using spaces as separators in the attribute: `class="special sale"`
+
+## IDs
+
+An **id** is a anothery type of HTML attribute used to give elements custom names. It works in a very similar way to classes. However, IDs are intended to be used only once in a page, so they are usually very specific. They're used as selectors like this:
+
+```{HTML}
+<body id="something-particular"></body>
+```
+
+```{CSS}
+#something-particular {
+  /* some very particular properties */
+}
+```
+
+IDs are often used on body tags so that you can write styles that are specific to particular pages. You can combine them in all the same ways as classes, so selectors might start to look like: `#about .special h2`, `#newsletter-signup.special` or `.special#newsletter-signup` etc. 
+
+
+# Overriding styles
+
+<div class="alert alert-warning" role="alert">
+**Ordering is really important**
+</div>
+
+We've already seen how ordering property declarations within declaration blocks can be important for setting fallbacks. The ordering of the entire stylesheet/s is important too. Whatever styles are written first, at the top of your stylesheet, will be loaded first. If another declaration block later on targets the same element with a different style, that later style will override the earlier one.
+
+Remeber how inline styles loaded last? The order all the different types of styles are added is important too.
+
+## Loading order of different types of style declarations
+
+If you load multiple external styles, the last one loaded will override all the others. Internal styles ovveride external stylesheets and inline styles override them all.
+
+1. External styles
+2. Internal styles
+3. Inline styles
+
+Always from top to bottom, or left to right.
+
+> Try loading the readymade example stylesheet `/css/example.css` in the example webpage. Everything we've done together, plus a few extras is in this sheet. Play with the order, putting it before and after your stylesheet. Inspect elements to see what happens and get a feel for which styles override each other.
+
+```{HTML}
+<link rel="stylesheet" href="../css/example.css" />
+```
+
+> How has the font-size declaration for the footer in my example stlesheet taken priority over the inline style?
+
+# Bootstrap
+
+Twitter's [Bootstrap](https://getbootstrap.com/) is an extremeley popular grid framework which provides hundreds of styles and complimentary javascript libraries to web developers. Around 18% of all websites make use of it to underpin their layouts and custom styles ([Burge 2018](https://www.ostraining.com/blog/webdesign/bootstrap-popular/)).
+
+**This is also the grid framework that Knitr and Shiny use in their generated HTML pages.** So, by getting familiar with Bootstrap's built in styles you can save youself time and effort when customising styles of knitted HTML documents, or Shiny apps; apply tons of pre-exisiting styles, just by adding the right class names to HTML elements. 
+
+- Imagine you have a list
+- But you want to highlight one point <span class="label label-default">this one!</span>
+- So it stands out from the rest.
+
+These labels have classes which are already defined by Bootstrap, along with other colours too: 
+
+<span class="label label-default">Default</span> <span class="label label-primary">Primary</span> <span class="label label-warning">Warning</span> <span class="label label-danger">Danger</span> <span class="label label-success">Success</span>
+
+```{HTML}
+<span class="label label-default">Default</span>
+<span class="label label-primary">Primary</span>
+<span class="label label-warning">Warning</span>
+<span class="label label-danger">Danger</span>
+<span class="label label-success">Success</span>
+```
+
+
+<div class="alert alert-info" role="alert">
+<div class="row">
+<div class="col-lg-8">
+This is just one small example. Bootstrap has LOADS of components and styles you can make use of, like this info alert box, link buttons, icons, menu navigation, tabbed content, and best of all, the grid framework for positioning things. The grid is customisable across different devices as all the classes have a size component like `sm`, `md` or `lg`. So on a small screen this alert is full width, but on a big screen it's split into two columns, and I didn't have to code any of the CSS that controls that myself. 
+</div>
+<div class="col-lg-4">
+<a href="https://getbootstrap.com/docs/3.3/" class="btn btn-primary btn-lg">Go See! <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+</div>
+</div>
+</div>
+
+> Watch out for the Bootstrap version being used. None of the R stuff I've looked at uses the latest releases so the best Bootstrap features are often missing. Most use v3.3 last time I checked, so I've linked to those docs above.
+
+# Useful Resources
+  
+- [W3Schools CSS](https://www.w3schools.com/css/): Free interactive online lessons.
+- [W3Schools HTML](https://www.w3schools.com/html/default.asp): Free interactive online lessons.
+- [CSSTricks](): Very cool techniques and demos.
+- [Bootstrap](https://getbootstrap.com/docs/3.3/): Grid framework used by Knitr and Shiny.
+- [RMarkdown HTML Style](https://bookdown.org/yihui/rmarkdown/html-document.html#appearance-and-style): Styling documentation.
+- [HTML5 Boilerplate](https://github.com/h5bp/html5-boilerplate): Best practice bare bones HTML page template.
+- [ColorZilla](https://www.colorzilla.com/): Colour picker browser extension.
+
+***
+
+# Advanced Topics
+
+> Topics for another day if any of you get really involved.
+
+## Complex selectors
+
+There are more complex ways to target elements. You can target every other row of a table, for example, or just the 4th element of every list. You can even use selectors to only target links that open in new tabs. Or, to specify a style that only effects the 2nd level of 3 nested lists. You can also target *states* like `:hover` and `:focus` which are used all the time for link and button styles.
+
+## Animation and Transformations
+
+CSS can even be used to animate, rotate and skew elements. Fading colour changes on hover is a common use example of this, but you can also do far more complex animations. 
+
+## Browser compatability
+
+For some properties (usually more advanced CSS3 ones) you'll have to set a range of slightly different properties in your declaration block to get them to work consistently in different browsers. Something like this:
+
+```{CSS}
+box-shadow: 10px 10px 5px 0px black; /* Standard CSS */
+-webkit-box-shadow: 10px 10px 5px 0px black; /* Chrome and Safari */
+-moz-box-shadow: 10px 10px 5px 0px black; /* Firefox */
+```
+
+Sometimes styles, especially layout ones, have unexpected outcomes in different browsers too (usually Internet Explorer). There are ways to set conditional styles so that different browsers load different CSS.
+
+## Compilers
+
+If you ever have to write a lot of CSS, consider learning how to write [Sass](https://sass-lang.com/) or [less](http://lesscss.org/). These languages have a syntax almost identical to CSS, but with additional shorthand, nesting,  and global variables. Command line compilers check your code for errors and turn it into CSS, ensuring consistent syntax and allowing you to easily change variables like colours, that might be repeated hundreds of times. Some packages can even add all the browser specific CSS properties for you automatically. Additionally, they can minify the stylesheet that is loaded on your website for increased speed, while keeping your development code easily readable. Your development code can even be split up into numerous files, and you can define which files become part of the compiled CSS.
