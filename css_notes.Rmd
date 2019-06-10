@@ -263,7 +263,7 @@ This is just one small example. Bootstrap has LOADS of components and styles you
 
 > Watch out for the Bootstrap version being used. None of the R stuff I've looked at uses the latest releases so the best Bootstrap features are often missing. Most use v3.3 last time I checked, so I've linked to those docs above.
 
-# Useful Resources
+# Useful Resources {.lead}
   
 - [W3Schools CSS](https://www.w3schools.com/css/): Free interactive online lessons.
 - [W3Schools HTML](https://www.w3schools.com/html/default.asp): Free interactive online lessons.
@@ -273,7 +273,6 @@ This is just one small example. Bootstrap has LOADS of components and styles you
 - [HTML5 Boilerplate](https://github.com/h5bp/html5-boilerplate): Best practice bare bones HTML page template.
 - [ColorZilla](https://www.colorzilla.com/): Colour picker browser extension.
 
-***
 
 # Advanced Topics
 
