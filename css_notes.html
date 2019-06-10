@@ -449,9 +449,9 @@ h2 {
 <p><strong>Ordering is really important</strong></p>
 </div>
 <p>We’ve already seen how ordering property declarations within declaration blocks can be important for setting fallbacks. The ordering of the entire stylesheet/s is important too. Whatever styles are written first, at the top of your stylesheet, will be loaded first. If another declaration block later on targets the same element with a different style, that later style will override the earlier one.</p>
-<p>Remember how inline styles loaded last? The order all the different types of styles are added is important too.</p>
-<div id="loading-order-of-different-types-of-style-declarations" class="section level2">
-<h2><span class="header-section-number">4.1</span> Loading order of different types of style declarations</h2>
+<p>Remember how inline styles loaded last? That’s why our paragraph style didn’t override it.</p>
+<div id="loading-order" class="section level2">
+<h2><span class="header-section-number">4.1</span> Loading order</h2>
 <p>If you load multiple external styles, the last one loaded will override all the others. Internal styles ovveride external stylesheets and inline styles override them all.</p>
 <ol style="list-style-type: decimal">
 <li>External styles</li>

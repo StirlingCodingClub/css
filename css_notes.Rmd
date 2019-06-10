@@ -207,9 +207,9 @@ IDs are often used on body tags so that you can write styles that are specific t
 
 We've already seen how ordering property declarations within declaration blocks can be important for setting fallbacks. The ordering of the entire stylesheet/s is important too. Whatever styles are written first, at the top of your stylesheet, will be loaded first. If another declaration block later on targets the same element with a different style, that later style will override the earlier one.
 
-Remember how inline styles loaded last? The order all the different types of styles are added is important too.
+Remember how inline styles loaded last? That's why our paragraph style didn't override it. 
 
-## Loading order of different types of style declarations
+## Loading order
 
 If you load multiple external styles, the last one loaded will override all the others. Internal styles ovveride external stylesheets and inline styles override them all.
 
