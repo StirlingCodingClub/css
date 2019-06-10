@@ -160,7 +160,7 @@ Classes are intended to be used many times, perhaps even across different elemen
 
 **Classes are the prefferred way to target elements** as they allow for changes to the HTML markup, without affecting the rendering of the page. In this example we could change the markup to `<span class="big"></span>` and our style would still be applied, because it targets the class and not the element. 
 
-> There is a **div** element with the class **special** in the the example page already. Try writing a declaration block that will make this section stand out from the rest of the page. It could look something like this:
+> There is a **div** element with the class **special** in the the example page already `<div class="special">`. Try writing a declaration block that will make this section stand out from the rest of the page. It could look something like this:
 
 ```{CSS}
 .special {
@@ -180,21 +180,42 @@ Classes are intended to be used many times, perhaps even across different elemen
 }
 ```
 
-> Do you see how this time the selector for the special heading is more complicated? `.special h2` targets all **h2** elements that are *inside* elements with the class **special**. You can keep going too, with as many spaces as you like for deeply nested elements; but using the shortest selectors possible is recommended.
+Spaces between selectors are used to target nested elements. The selector `.special h2` in this example targets all **h2** elements that are *inside* elements which have the class **special**. 
 
-> Now try changing the **div** element to a **section** element instead (this tag is more suitable). Remember to change both the opening and closing tags. Your `.special` class style declaration will still work because we didn't target a specific element.
+You can keep going too, with as many spaces as you like for deeply nested elements, but using the shortest selectors possible is recommended for speed and readability.
+
+> Now try changing the **div** element to a **section** element instead (this tag is more descriptive). Remember to change both the opening and closing tags. Your `.special` class style declaration will still work because we didn't target the element by it's tag.
 
 ### Combining class and element selectors
 
-You can combine class selectors with element selectors like this: `div.special`. The `.` that prefixes the class selector acts to concatenate the two selectors together. This can be useful when you need to override a style that already specifies the element. 
+You can combine class selectors with element selectors like this too: `div.special`. The `.` that prefixes the class selector acts to concatenate the two selectors together. This targets all **div** elements with the class **special**. Targeting elements in this way removes the benefits of using class names (now you can't change divs to sections without updating the CSS too). Only use selectors like this if you absolutely have to; it can be useful when you need to override a style that already specifies the element.
 
-You can also concatenate as many classes as you want, so you can imagine a selector that looks something like this: `.special.sale` or `.special.info`. All the elements with `class="special"` will use the same set of declarations but then extra classes (like `sale` or `info` in this example) can be added to differentiate them. Taking this approach helps you to write less repetitive CSS.
+You can also concatenate as many classes as you want, so you can imagine a selector that looks something like this: `.special.sale` or `.special.info`. 
 
-You can give an element multiple classes, just by using spaces as separators in the attribute: `class="special sale"`
+> What do you think the markup for these elements would look like?
 
-> Copy the whole chunk of markup between `<section class="special">` and `</section>`. Paste it just above the `<footer>` to create another special section. Give this new section another class; call it whatever you like so your class attribute ends up looking something like: `class="special new-class"`. 
+These selectors target elements that have multiple classes. By using spaces as separators in the attribute you can add as many classes to an element as you like: `class="special sale whatever blah blaaaah"`. So, the selectors `.special.sale` and `.special.info` target elements that look like this: 
 
-> Now, try adding a new declaration that adds something different to this block, by targeting the new class in your stylesheet.
+```html
+<section class="special sale">
+  <!-- some special offer here -->
+</section>
+<section class="special info">
+  <!-- some special information here -->
+</section>
+```
+
+All the elements with class **special** will use the same set of declarations but then the extra classes **sale** and **info** differentiate them. Taking this approach helps you to write less repetitive CSS.
+
+> Copy the whole chunk of markup between `<section class="special">` and `</section>`. Paste it just above the `<footer>` to create another special section. Give this new section another class; call it whatever you like, so your class attribute ends up looking something like: `class="special new-class"`. 
+
+I've said call it 'whatever you like' but there are some rules to class names:
+
+- They can't have sapces.
+- They can't start with a number.
+- Be consistent with any other formatting you choose to use. For example, make them always lowercase with hyphens for spaces to conform to popular standards.
+
+> Now, try adding a new declaration that changes a style for this block by targeting the new class in your stylesheet.
 
 ## IDs
 
@@ -212,8 +233,11 @@ An **id** is a another type of HTML attribute used to give elements custom names
 }
 ```
 
-IDs are often used on body tags so that you can write styles that are specific to particular pages. You can combine ID selectors in all the same ways as classes; the `#` prefix acts as a concatenator too. So, selectors with IDs in might start to look like: `#about .special h2`, or `#signup.special` etc. 
+IDs are often used on body tags so that you can write styles that are specific to particular pages. You can combine ID selectors in all the same ways as classes. So, selectors with IDs in might start to look like: `section#important`, `#about .special h2`, or `#signup.special` etc. IDs are also especially easy to target with javaScript and, because they're not intended to be repeated, make these scripts highly selective.
 
+All the same naming rules for classes apply to IDs too.
+
+> Try adding an ID to an element along with a style declaration that targets it in your stylesheet.
 
 # Overriding styles
 

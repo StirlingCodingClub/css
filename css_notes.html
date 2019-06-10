@@ -410,7 +410,7 @@ h2 {
 }</code></pre>
 <p><strong>Classes are the prefferred way to target elements</strong> as they allow for changes to the HTML markup, without affecting the rendering of the page. In this example we could change the markup to <code>&lt;span class=&quot;big&quot;&gt;&lt;/span&gt;</code> and our style would still be applied, because it targets the class and not the element.</p>
 <blockquote>
-<p>There is a <strong>div</strong> element with the class <strong>special</strong> in the the example page already. Try writing a declaration block that will make this section stand out from the rest of the page. It could look something like this:</p>
+<p>There is a <strong>div</strong> element with the class <strong>special</strong> in the the example page already <code>&lt;div class=&quot;special&quot;&gt;</code>. Try writing a declaration block that will make this section stand out from the rest of the page. It could look something like this:</p>
 </blockquote>
 <pre class="css"><code>.special {
   background-color: white;
@@ -427,22 +427,37 @@ h2 {
   position: relative;
   left: -2em;
 }</code></pre>
+<p>Spaces between selectors are used to target nested elements. The selector <code>.special h2</code> in this example targets all <strong>h2</strong> elements that are <em>inside</em> elements which have the class <strong>special</strong>.</p>
+<p>You can keep going too, with as many spaces as you like for deeply nested elements, but using the shortest selectors possible is recommended for speed and readability.</p>
 <blockquote>
-<p>Do you see how this time the selector for the special heading is more complicated? <code>.special h2</code> targets all <strong>h2</strong> elements that are <em>inside</em> elements with the class <strong>special</strong>. You can keep going too, with as many spaces as you like for deeply nested elements; but using the shortest selectors possible is recommended.</p>
-</blockquote>
-<blockquote>
-<p>Now try changing the <strong>div</strong> element to a <strong>section</strong> element instead (this tag is more suitable). Remember to change both the opening and closing tags. Your <code>.special</code> class style declaration will still work because we didn’t target a specific element.</p>
+<p>Now try changing the <strong>div</strong> element to a <strong>section</strong> element instead (this tag is more descriptive). Remember to change both the opening and closing tags. Your <code>.special</code> class style declaration will still work because we didn’t target the element by it’s tag.</p>
 </blockquote>
 <div id="combining-class-and-element-selectors" class="section level3">
 <h3><span class="header-section-number">3.1.1</span> Combining class and element selectors</h3>
-<p>You can combine class selectors with element selectors like this: <code>div.special</code>. The <code>.</code> that prefixes the class selector acts to concatenate the two selectors together. This can be useful when you need to override a style that already specifies the element.</p>
-<p>You can also concatenate as many classes as you want, so you can imagine a selector that looks something like this: <code>.special.sale</code> or <code>.special.info</code>. All the elements with <code>class=&quot;special&quot;</code> will use the same set of declarations but then extra classes (like <code>sale</code> or <code>info</code> in this example) can be added to differentiate them. Taking this approach helps you to write less repetitive CSS.</p>
-<p>You can give an element multiple classes, just by using spaces as separators in the attribute: <code>class=&quot;special sale&quot;</code></p>
+<p>You can combine class selectors with element selectors like this too: <code>div.special</code>. The <code>.</code> that prefixes the class selector acts to concatenate the two selectors together. This targets all <strong>div</strong> elements with the class <strong>special</strong>. Targeting elements in this way removes the benefits of using class names (now you can’t change divs to sections without updating the CSS too). Only use selectors like this if you absolutely have to; it can be useful when you need to override a style that already specifies the element.</p>
+<p>You can also concatenate as many classes as you want, so you can imagine a selector that looks something like this: <code>.special.sale</code> or <code>.special.info</code>.</p>
 <blockquote>
-<p>Copy the whole chunk of markup between <code>&lt;section class=&quot;special&quot;&gt;</code> and <code>&lt;/section&gt;</code>. Paste it just above the <code>&lt;footer&gt;</code> to create another special section. Give this new section another class; call it whatever you like so your class attribute ends up looking something like: <code>class=&quot;special new-class&quot;</code>.</p>
+<p>What do you think the markup for these elements would look like?</p>
 </blockquote>
+<p>These selectors target elements that have multiple classes. By using spaces as separators in the attribute you can add as many classes to an element as you like: <code>class=&quot;special sale whatever blah blaaaah&quot;</code>. So, the selectors <code>.special.sale</code> and <code>.special.info</code> target elements that look like this:</p>
+<pre class="html"><code>&lt;section class=&quot;special sale&quot;&gt;
+  &lt;!-- some special offer here --&gt;
+&lt;/section&gt;
+&lt;section class=&quot;special info&quot;&gt;
+  &lt;!-- some special information here --&gt;
+&lt;/section&gt;</code></pre>
+<p>All the elements with class <strong>special</strong> will use the same set of declarations but then the extra classes <strong>sale</strong> and <strong>info</strong> differentiate them. Taking this approach helps you to write less repetitive CSS.</p>
 <blockquote>
-<p>Now, try adding a new declaration that adds something different to this block, by targeting the new class in your stylesheet.</p>
+<p>Copy the whole chunk of markup between <code>&lt;section class=&quot;special&quot;&gt;</code> and <code>&lt;/section&gt;</code>. Paste it just above the <code>&lt;footer&gt;</code> to create another special section. Give this new section another class; call it whatever you like, so your class attribute ends up looking something like: <code>class=&quot;special new-class&quot;</code>.</p>
+</blockquote>
+<p>I’ve said call it ‘whatever you like’ but there are some rules to class names:</p>
+<ul>
+<li>They can’t have sapces.</li>
+<li>They can’t start with a number.</li>
+<li>Be consistent with any other formatting you choose to use. For example, make them always lowercase with hyphens for spaces to conform to popular standards.</li>
+</ul>
+<blockquote>
+<p>Now, try adding a new declaration that changes a style for this block by targeting the new class in your stylesheet.</p>
 </blockquote>
 </div>
 </div>
@@ -454,7 +469,11 @@ h2 {
 <pre class="css"><code>#something-particular {
   /* some very particular properties */
 }</code></pre>
-<p>IDs are often used on body tags so that you can write styles that are specific to particular pages. You can combine ID selectors in all the same ways as classes; the <code>#</code> prefix acts as a concatenator too. So, selectors with IDs in might start to look like: <code>#about .special h2</code>, or <code>#signup.special</code> etc.</p>
+<p>IDs are often used on body tags so that you can write styles that are specific to particular pages. You can combine ID selectors in all the same ways as classes. So, selectors with IDs in might start to look like: <code>section#important</code>, <code>#about .special h2</code>, or <code>#signup.special</code> etc. IDs are also especially easy to target with javaScript and, because they’re not intended to be repeated, make these scripts highly selective.</p>
+<p>All the same naming rules for classes apply to IDs too.</p>
+<blockquote>
+<p>Try adding an ID to an element along with a style declaration that targets it in your stylesheet.</p>
+</blockquote>
 </div>
 </div>
 <div id="overriding-styles" class="section level1">
