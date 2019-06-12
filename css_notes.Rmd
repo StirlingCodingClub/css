@@ -10,9 +10,7 @@ output:
     collapsed: true
     smooth_scroll: true
     number_sections: true
-    #code_folding: show
     css: css/css_notes.css
-#bibliography: css_refs.bib
 ---
 
 <div class="alert alert-info" role="alert">
@@ -29,27 +27,68 @@ Please think of this document as a living document, which you are free to improv
 
 You can define style rules by adding a **style** element inside the **head** element of a webpage. 
 
-> Open `/html/example.html` and take a look at how a HTML page looks when it has absolutely no styling loaded. Now, have a go at putting this `<style>` tag in the right place, between the opening `<head>` and closing `</head>` tags. It contains a CSS declaration block that targets paragraphs.
+> Open `/html/example.html` in a browser to view the rendered page and take a look at how a HTML page looks when it has absolutely no styling loaded. 
 
-```{HTML}
+> Now, open the same file in a text editor (RStudio will do!) to see the HTML code that makes the page. 
+
+> Have a go at putting the **style** element below in the right place, near the very top of the document, between the opening `<head>` and closing `</head>` tags. Try not to disrupt any other elements that are nested in the head by making sure your style element sits one level deep inside the head. 
+
+```html
 <style type="text/css">
+  /* It contains a CSS declaration block that targets paragraphs. */
   p {
     font-size: 1.2em;
     line-height: 1.4;
   }
 </style>
 ```
+You should end up with the start of the document looking like this:
 
-> Did you notice that the final paragraph didn't change? That's because it has an inline style added as a *style* attribute to that paragraph. While you're viewing the rendered page, try right clicking on it and choosing 'Inspect' from the menu. Can you see the inline style? You should be able to see a panel that shows you the markup, with the CSS styles that apply to it on the right. Try unticking the element.style `font-size: 0.7em` to see what the page would look like without the inline style.
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Make me Pretty</title>
+    <!-- HINT: Put your <style></style> and <link /> tags here -->
+    <style type="text/css">
+      /* It contains a CSS declaration block that targets paragraphs. */
+      p {
+        font-size: 1.2em;
+        line-height: 1.4;
+      }
+    </style>
+  </head>
+  <body>
+```
+
+> **Save the document and refresh the page in your browser.** You should see all the text get bigger and the line spacing increase. Did you notice that the final paragraph didn't change? 
+
+That's because it has an inline style added as a *style* attribute to that paragraph. 
+
 
 ## Inline styles
 
-The **style** attribute can be used to set CSS properties directly on HTML elements. Inline styles are loaded after all other CSS, so they take priority over all other styles. They're generally best avoided but do have their uses. To add one, just add properties to the attribute in the HTML markup, separated by semi-colons like this: `style="property: value; property: value"`.
+> While you're viewing the rendered page in your browser, try right clicking on that last paragraph and choosing **Inspect** from the menu. Can you see the inline style? 
 
-> Try adding this inline style to the **header** element in our example page.
+You should be able to see a panel that shows you the markup of the whole page on the left, with the last paragraph highlighted `<p style="font-size: .7em">` and the CSS styles that apply to it on the right. The style we just added will appear at the top, but it's crossed out because it can't be loaded.
 
-```{HTML}
+> On the right hand side of this console, try unticking the **element.style** `font-size: 0.7em` to see what the page would look like without the inline style. 
+
+<div class="alert alert-warning">
+**Remember** how to use this console to inspect elements and thier CSS - it's a really useful way to test things out without actually making changes to your code.
+</div>
+
+The **style** attribute can be used to set CSS properties directly on HTML elements. Inline styles cannot be overridden easily. They're generally best avoided as they start to rui the spearation between structure and style, but they do have their uses. CSS declarations are added to the **style attribute** in the HTML markup of the element you want to style. Each declaration is separated by semi-colons like this: `style="property: value; property: value"`.
+
+> Try adding the inline style `style="text-align: center"` to the **header** element of our example page (his element is right near the top of the body).
+
+You should end up with a header that looks like this:
+
+```html
 <header style="text-align: center">
+  <h1>Very basic HTML page</h1>
+  <blockquote>Full of nonsense no less.</blockquote>
+</header>
 ```
 
 
@@ -57,33 +96,43 @@ The **style** attribute can be used to set CSS properties directly on HTML eleme
 
 It's often better to keep your stylesheet in a separate file. External stylesheets can be loaded with a webpage by adding the **link** element inside the **head** element, and setting particular attributes.
 
-> Make a new text file and save it in `/css` with the extension `.css`. Add the style rule below to this file.
+> Make a new text file and save it in `/css` with the extension `.css`. Add the declaration block below to the new file.
 
-```{CSS}
+```css
 body {
   font-family: sans-serif;
 }
 ```
 
-> Then load it with the example HTML page by adding the following element, again between the opening `<head>` and closing `</head>` tags. 
+> Now let's tell our page how to use it. Add the following **link** element, again between the opening `<head>` and closing `</head>` tags, without disrupting any other elements in the head, by making sure it sits one level deep.
 
-```{HTML}
-<link href="../css/your-styles.css" rel="stylesheet" media="all" />
-```
-  
-The **media** attribute tells the page to use these styles all the time. You can also set this to *screen* or *print*. Having a different stylesheet for printing pages can be really useful to save paper and ink. You can add this attribute to internal `<style>` tags too.
-
-### RMarkdown
-
-You can also load external styles with Pandoc for you RMarkdown documents. Just include the **css** option as part of the **html_document** statement in your Pandoc header, with the path to your file: 
-
-```{Rmd}
-output:
-  html_document:
-    css: your-stylesheet.css
+```html
+<link href="../css/your-styles.css" rel="stylesheet" />
 ```
 
-> Take a look at the header of `css_notes.Rmd` to see what custom styles this page uses.
+> Remember to change the **href** attribute so the path goes to the file you created.
+
+Your head should end up looking something like this:
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Make me Pretty</title>
+    <!-- HINT: Put your <style></style> and <link /> tags here -->
+    <style type="text/css">
+      /* It contains a CSS declaration block that targets paragraphs. */
+      p {
+        font-size: 1.2em;
+        line-height: 1.4;
+      }
+    </style>
+    <link href="../css/your-styles.css" rel="stylesheet" />
+  </head>
+  <body>
+```
+
+It doesn't matter, at the moment, if you put the `<link>` tag before or after the **style** element. But, DON'T put it *between* the opening `<style>` and closing `</style>` tags. Only CSS can go here. 
 
 # Properties
 
@@ -95,7 +144,7 @@ Properties are specific names for all the styles that you can control. We've alr
 
 It could look something like this:
 
-```{CSS}
+```css
 body {
   background-image: url("https://jooinn.com/images/abstract-background-1.jpg");
   background-repeat: no-repeat;
@@ -110,21 +159,21 @@ body {
 
 Selectors are what you use to target HTML elements, they define which parts of the page your properties will be applied to. We've been using them already to target things like paragraphs, headers and body elements. Selectors come *before* the curly braces that contain the declaration block. You need atleast one, but you can also have multiple, comma spearated, selectors:
 
-```{CSS}
-/* will make both h1 and h2 headings bold */
+```css
+/* like this */
 h1, h2 {
-  font-weight: bold;
+  text-transform: uppercase;
 }
-/* you can use line breaks here too */
+/* OR like this with line breaks */
 h1,
 h2 {
-  font-weight: bold;
+  text-transform: uppercase;
 }
 ```
 
 All the tags that are used to define HTML elements can be used as selectors. You can also select targets using **class** or **ID** names that elements have been given as well as a variety of other advanced methods. Any declaration block will affect ALL elements of the type defined by it's selector.
 
-> Try adding a new declaration block to your stylesheet. Let's make all the text more readable by targeting the element **main**. Add the style below, then inspect the element and turn the styles on and off to see what they do.
+> Let's make all the text more readable by targeting the element **main**. Add the declaration block below to your new stylesheet. then inspect the element and turn the styles on and off to see what they do.
 
 ```{CSS}
 main {
@@ -144,7 +193,7 @@ main {
 
 A **class** is a type of HTML attribute used to give elements custom names. 
 
-```{HTML}
+```html
 <p class="big"></p>
 ```
 
@@ -152,7 +201,7 @@ Classes are intended to be used many times, perhaps even across different elemen
 
 **Classes are used as selectors like this:**
 
-```{CSS}
+```css
 .big {
   font-size: 2em;
 }
@@ -162,7 +211,7 @@ Classes are intended to be used many times, perhaps even across different elemen
 
 > There is a **div** element with the class **special** in the the example page already `<div class="special">`. Try writing a declaration block that will make this section stand out from the rest of the page. It could look something like this:
 
-```{CSS}
+```css
 .special {
   background-color: white;
   color: #4f4f4f;
@@ -184,7 +233,19 @@ Spaces between selectors are used to target nested elements. The selector `.spec
 
 You can keep going too, with as many spaces as you like for deeply nested elements, but using the shortest selectors possible is recommended for speed and readability.
 
-> Now try changing the **div** element to a **section** element instead (this tag is more descriptive). Remember to change both the opening and closing tags. Your `.special` class style declaration will still work because we didn't target the element by it's tag.
+> Now try changing the **div** element to a **section** element instead (this tag is more descriptive). Remember to change both the opening and closing tags.
+
+Your HTML should end up looking like this:
+
+```html
+<section class="special">
+  <!-- all the headings and paragraphs inside it... -->
+</section>
+```
+
+> Now refresh the page and *nothing* should change. 
+
+Your `.special` class style declaration will still work because we didn't target the element by it's tag.
 
 ### Combining class and element selectors
 
@@ -207,7 +268,7 @@ These selectors target elements that have multiple classes. By using spaces as s
 
 All the elements with class **special** will use the same set of declarations but then the extra classes **sale** and **info** differentiate them. Taking this approach helps you to write less repetitive CSS.
 
-> Copy the whole chunk of markup between `<section class="special">` and `</section>`. Paste it just above the `<footer>` to create another special section. Give this new section another class; call it whatever you like, so your class attribute ends up looking something like: `class="special new-class"`. 
+> Copy the whole chunk of markup between `<section class="special">` and `</section>`. Paste it just above the `<footer>` to create another special section. Give this new section another class; call it whatever you like, so your class attribute ends up looking something like: `class="special whatever"`. 
 
 I've said call it 'whatever you like' but there are some rules to class names:
 
@@ -215,7 +276,7 @@ I've said call it 'whatever you like' but there are some rules to class names:
 - They can't start with a number.
 - Be consistent with any other formatting you choose to use. For example, make them always lowercase with hyphens for spaces to conform to popular standards.
 
-> Now, try adding a new declaration that changes a style for this block by targeting the new class in your stylesheet.
+> Now, try adding a new declaration block that changes a property for this new section and makes it a little different than the other one (HINT: target the new class in your stylesheet).
 
 ## IDs
 
@@ -223,11 +284,11 @@ An **id** is a another type of HTML attribute used to give elements custom names
 
 **IDs are used as selectors like this:**
 
-```{HTML}
+```html
 <body id="something-particular"></body>
 ```
 
-```{CSS}
+```css
 #something-particular {
   /* some very particular properties */
 }
@@ -245,24 +306,46 @@ All the same naming rules for classes apply to IDs too.
 **Ordering is really important.**
 </div>
 
-We've already seen how ordering property declarations within declaration blocks can be important for setting colour fallbacks. The ordering of the entire stylesheet is important too. Whatever styles are written first, at the top of your stylesheet, will be loaded first. If another declaration block later on targets the same element with a different style, that later style will override the earlier one.
+We've already seen how ordering property declarations within declaration blocks can be important for setting colour fallbacks. The ordering of the entire stylesheet is important too. Whatever styles are written first, at the top of your stylesheet, will be loaded first. If another declaration block later on targets the same element with a different style, that later style will override the earlier one. If different properties are set in the later declaration block then all the outcome will be a combination of both sets of rules.
 
 ## Loading order
 
 The order of styles loaded in different ways is important too. Remember how we couldn't override the inline paragraph style with our internal style? 
 
-If you load multiple external styles, the last one loaded will override all the others. Internal styles can be loaded before or after external styles, depending on where the `<link>` and `<style>` tags are placed. Inline styles, however, are ALWAYS loaded last, so override them all.
+If you load multiple external styles, the last one loaded will override all the others. Internal styles can be loaded before or after external styles, depending on where the `<link>` and `<style>` tags are placed. 
 
-1. **External and Internal styles** (from top to bottom).
-2. **Inline styles** (from top to bottom and left to right).
+Inline styles, are an exception to this rule. They're not loaded last but they're automatically considered more important, so they stop other styles from overriding them.
 
-> Try loading the readymade example stylesheet `/css/example.css` in the example webpage. Everything we've done together, plus a few extra styles is in this sheet. Play with the order, putting it before and after your stylesheet. Inspect elements to see what happens and get a feel for which styles override each other.
+> Try loading the readymade external stylesheet `/css/example.css` in the example webpage.  
 
-```{HTML}
+You can use the **link** element again like this:
+
+```html
 <link rel="stylesheet" href="../css/example.css" />
 ```
 
+Everything we've done together, plus a few extra styles is in this sheet. So when you save and refresh you should see some changes.
+
 > How has the font-size declaration for the footer in my example stylesheet taken priority over the inline style we looked at earlier?
+
+If you inspect the paragraph, you should see that the style I've included has a special statement after the value for font-size: `!important`. Whatever order other styles are loaded in after this declaration, nothing will be able to override it unless it too uses the `!important` statement. **Don't use these unless you absolutely have to** (it's bad practice and very annoying to edit later).  
+
+> Play with the order of styles, putting them before and after each other. Inspect elements to see what happens and get a feel for which styles override each other.
+
+
+# RMarkdown
+
+You can load external styles with Pandoc for you RMarkdown documents really easily. Just include the **css** option as part of the **html_document** statement in your Pandoc header, with the path to your file: 
+
+```{Rmd}
+output:
+  html_document:
+    css: your-stylesheet.css
+```
+
+> Take a look at the header of the file that I used to generate these notes (`css_notes.Rmd`). Find out what external stylesheet is being used and take a look at it to see what custom styles this page uses.
+
+> Try adding a declaration block of your own to this stylesheet. See if you can change the colour or the font or the headings (re-knit the Rmd document and refresh the page to see your changes).
 
 # Bootstrap
 
@@ -298,7 +381,17 @@ This is just one small example. Bootstrap has LOADS of components and styles you
 </div>
 </div>
 
-> Watch out for the Bootstrap version being used. None of the R stuff I've looked at uses the latest releases so the best Bootstrap features are often missing. Most use v3.3 last time I checked, so I've linked to those docs above.
+Watch out for the Bootstrap version being used. None of the R stuff I've looked at uses the latest releases so the best Bootstrap features are often missing. Most use v3.3 last time I checked, so I've linked to those docs above.
+
+> Try out some Bootstrap elements: Have a go at putting a new alert box in this document by editing `css_notes.Rmd` and using the markup below to wrap a paragraph.
+
+```html
+<div class="alert alert-danger">
+Whatever paragraph text here...
+</div>
+```
+> Knit the page to see your changes. The paragraph you wrapped should now be in pale red box with rounded corners.
+
 
 # Useful Resources {.lead}
   
