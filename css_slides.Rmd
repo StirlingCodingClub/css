@@ -1,5 +1,5 @@
 ---
-title: "Introduction to Cascading Style Sheets"
+title: "Introduction to Cascading Style Sheets (CSS)"
 author: "Rose McKeon"
 date: "(June 12th 2019)"
 subtitle: https://github.com/StirlingCodingClub/css
@@ -26,20 +26,19 @@ knitr::opts_chunk$set(echo = FALSE)
 
 # What is CSS?
 
-CSS stands for Cascading Style Sheets.
-
 - CSS is a language that describes the *style* of a HTML document. 
-- It describes how particular HTML **elements** should be displayed. 
+- It targets particular HTML **elements** and describes their visual properties. 
+- On it's own CSS doesn't do anything at all.
 
 You'll need to know some basic HTML in order to understand how to use CSS.
 
 # What is HTML?
 
-HTML is the standard markup language for creating Web pages. It describes their *structure*. 
+Hyper Text Markup Language (HTML) is the language that creates Web pages. It describes their *structure*. 
 
-- A web page is made up of HTML **elements** which are represented by **tags**. 
-- These tags define the type of content held within them and give HTML pages a structured hierarchy. 
-- Tags  can be nested within each other, and often have **attributes** which provide additional information about the element.
+- A web page is made up of HTML **elements** 
+- Elements have names which are used to represent them with **tags**: `<html>`.
+- Element tags define the type of content held within them to give HTML pages a structured hierarchy. 
 
 # Basic HTML
 
@@ -61,39 +60,49 @@ All HTML pages **must have** these elements:
 
 Most element tags wrap content to define where it starts and ends, so they have an opening tag like `<p>` and a closing tag like `</p>`. 
 
-These tags all wrap:
-
 ```html
 <h1>A heading</h1>
 <p>A paragraph</p>
+```
+Sometimes tags have **attributes** which provide additional information about the element. For example, the link tag `<a>` (which stands for 'anchor') needs the **href** attribute to work.
+
+```html
 <a href="https://google.com">A link</a>
 ```
-The link tag `<a>` needs the **href** attribute to work.
+
 
 # HTML Tags
 
-Some tags don't wrap, these have closing slashes instead:
+**Self-closing** tags don't wrap, these have closing slashes instead.
 
 ```html
 <br /> <!-- a line break -->
 <hr /> <!-- a horizontal rule -->
+```
+
+Again, sometimes these tags will have attributes. The image tag `<img>` needs the **src** attribute to work.
+
+```html
 <img src="https://tinyurl.com/y63hts5h" />
 ```
-The image tag `<img>` needs the **src** attribute to work.
-
-You can put tags directly in RMarkdown documents, so they can be handy to know.
+You can put all HTML tags directly in RMarkdown documents.
 
 # How CSS and HTML work together
 
-Structure and style are kept separate by using CSS to declare the visual properties which are applied to HTML elements.
+Using separate languages to describe style and structure allows their syntax to better fit their purpose. It also keeps web pages very flexible as different styles can be loaded to change how a page looks without altering it's markup.
 
-- CSS **selectors** target HTML **elements** and apply styles to them. 
-- The styles which are applied are defined by CSS **properties**.
-- A set of properties attached to a selector is a **declaration block**. 
+- CSS **selectors** target HTML **elements**.
+- Visual **properties** of targeted elements are declared in **declaration blocks**. 
 
-# An example CSS declaration block
+# How CSS and HTML work together
 
-A declaration block that targets paragraphs might look something like this:
+Here's how a paragraph looks in HTML:
+
+```html
+<p>A paragraph that says whatever...</p>
+```
+
+Here's a CSS declaration block that targets it:
 
 ```css
 p {
@@ -102,9 +111,7 @@ p {
 }
 ```
 
-The selector `p` is followed by curly braces that contain the declarations. Each declaration states a property to change and a value to change to: `property: value;`
-
-In this case *all paragraphs* will have a font size of 1em and line-height (this is line spacing) of 1.
+The selector `p` is followed by curly braces that contain the declarations. Each declaration states a visual property to change and has a coressponding value: `property: value;`
 
 # HTML without CSS
 
