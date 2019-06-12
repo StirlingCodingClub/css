@@ -175,7 +175,7 @@ All the tags that are used to define HTML elements can be used as selectors. You
 
 > Let's make all the text more readable by targeting the element **main**. Add the declaration block below to your new stylesheet. then inspect the element and turn the styles on and off to see what they do.
 
-```{CSS}
+```css
 main {
   background-color: black; /* fallback */
   background-color: rgba(0, 0, 0, .7);
@@ -337,7 +337,7 @@ If you inspect the paragraph, you should see that the style I've included has a 
 
 You can load external styles with Pandoc for you RMarkdown documents really easily. Just include the **css** option as part of the **html_document** statement in your Pandoc header, with the path to your file: 
 
-```{Rmd}
+```Rmd
 output:
   html_document:
     css: your-stylesheet.css
@@ -361,7 +361,7 @@ These labels have classes which are already defined by Bootstrap, along with oth
 
 <span class="label label-default">Default</span> <span class="label label-primary">Primary</span> <span class="label label-warning">Warning</span> <span class="label label-danger">Danger</span> <span class="label label-success">Success</span>
 
-```{HTML}
+```html
 <span class="label label-default">Default</span>
 <span class="label label-primary">Primary</span>
 <span class="label label-warning">Warning</span>
@@ -425,7 +425,7 @@ CSS can even be used to animate, rotate and skew elements. Fading colour changes
 
 For some properties (usually more advanced CSS3 ones) you'll have to set a range of slightly different properties in your declaration block to get them to work consistently in different browsers. Something like this:
 
-```{CSS}
+```css
 box-shadow: 10px 10px 5px 0px black; /* Standard CSS */
 -webkit-box-shadow: 10px 10px 5px 0px black; /* Chrome and Safari */
 -moz-box-shadow: 10px 10px 5px 0px black; /* Firefox */
